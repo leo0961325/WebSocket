@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 @Slf4j
 public class ChatController {
 
+    //@MessageMapping類似於@RequestMapping
+    //Spring Boot執行時會掃描group內的@Configuration如果有@Enable...將會啟用該配置
     @MessageMapping("/chat.send")
     @SendTo("/topic/public")
     public ChatMessage sendMessage(@Payload final ChatMessage chatMessage){
