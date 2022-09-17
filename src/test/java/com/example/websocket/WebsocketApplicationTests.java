@@ -29,10 +29,24 @@ class WebsocketApplicationTests {
                 "\t\t}\n" +
                 "}";
 
-        JSONObject jsonObject = new JSONObject(example);
-        String[] strings = JSONObject.getNames(jsonObject);
-        for(String key : strings){
-            System.out.println(key);
+        String example2 = "{\n" +
+                " \"copy\":{\n" +
+                "   \"key\":\"copyKey\",\n" +
+                "   \"value\":\"copyValue\"\n" +
+                "  }\n" +
+                "}\n";
+
+        JSONObject jsonObject = new JSONObject(example); //obj1
+        JSONObject jsonObjectForCopy = new JSONObject(example2); //obj2
+
+        JSONObject mergeJson = new JSONObject(jsonObject,JSONObject.getNames(jsonObject)); //for merge use
+
+//        this will return JsonObj keys
+//        String[] strings = JSONObject.getNames(jsonObject);
+
+        for(String key : JSONObject.getNames(jsonObjectForCopy)){
+            mergeJson.put(key,jsonObjectForCopy.get(key));
+            System.out.println(mergeJson);
         }
 
 
