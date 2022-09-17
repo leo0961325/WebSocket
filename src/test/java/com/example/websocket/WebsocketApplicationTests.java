@@ -39,7 +39,8 @@ class WebsocketApplicationTests {
         JSONObject jsonObject = new JSONObject(example); //obj1
         JSONObject jsonObjectForCopy = new JSONObject(example2); //obj2
 
-        JSONObject mergeJson = new JSONObject(jsonObject,JSONObject.getNames(jsonObject)); //for merge use
+        //Copy new one for merge use
+        JSONObject mergeJson = new JSONObject(jsonObject,JSONObject.getNames(jsonObject));
 
 //        this will return JsonObj keys
 //        String[] strings = JSONObject.getNames(jsonObject);
