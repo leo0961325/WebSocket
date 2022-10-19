@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.util.StringUtils;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @SpringBootTest
-class WebsocketApplicationTests {
+class WhatsAppTemplatesTests {
 
     @Test
     void contextLoads() throws JSONException {
@@ -86,73 +87,58 @@ class WebsocketApplicationTests {
          * must take off _id;
          */
         String template =
-                        "{    \"id\" : \"378881204331613\",\n" +
-                        "    \"team\" : \"Easychat-2\",\n" +
-                        "    \"accId\" : \"24e3c17b-fa49-403a-a3de-398831f39394\",\n" +
-                        "    \"type\" : \"template\",\n" +
-                        "    \"name\" : \"doc_test\",\n" +
-                        "    \"namespace\" : \"904212ab_d06f_4441_b3af_5fd57f10709b\",\n" +
-                        "    \"components\" : [ \n" +
-                        "        {\n" +
-                        "            \"type\" : \"HEADER\",\n" +
-                        "            \"format\" : \"DOCUMENT\",\n" +
-                        "            \"example\" : {\n" +
-                        "                \"header_handle\" : [ \n" +
-                        "                    \"https://scontent.whatsapp.net/v/t61.29466-34/299826941_378881207664946_3677727754011328572_n.pdf?ccb=1-7&_nc_sid=57045b&_nc_ohc=nMCWCif1U3YAX__Z42G&_nc_ht=scontent.whatsapp.net&edm=AH51TzQEAAAA&oh=01_AVx0MDnsZUj0zdV20-HGzE3kWiOZNJx1IAJ0QJ4wLKtO4Q&oe=633FE6BC\"\n" +
-                        "                ]\n" +
-                        "            }\n" +
-                        "        }, \n" +
-                        "        {\n" +
-                        "            \"type\" : \"BODY\",\n" +
-                        "            \"text\" : \"\uD83D\uDE06123\"\n" +
-                        "        }, \n" +
-                        "        {\n" +
-                        "            \"type\" : \"FOOTER\",\n" +
-                        "            \"text\" : \"456\"\n" +
-                        "        }, \n" +
-                        "        {\n" +
-                        "            \"type\" : \"BUTTONS\",\n" +
-                        "            \"buttons\" : [ \n" +
-                        "                {\n" +
-                        "                    \"type\" : \"PHONE_NUMBER\",\n" +
-                        "                    \"text\" : \"click me\",\n" +
-                        "                    \"phone_number\" : \"+886965667678\"\n" +
-                        "                }\n" +
-                        "            ]\n" +
-                        "        }\n" +
-                        "    ],\n" +
-                        "    \"template\" : \"\uD83D\uDE06123\",\n" +
-                        "    \"language\" : \"zh_TW\",\n" +
-                        "    \"category\" : \"TRANSACTIONAL\",\n" +
-                        "    \"status\" : \"APPROVED\"\n" +
-                        "}";
+                        "{\n" +
+                                "    \"id\" : \"275469878064813\",\n" +
+                                "    \"team\" : \"Easychat-2\",\n" +
+                                "    \"accId\" : \"24e3c17b-fa49-403a-a3de-398831f39394\",\n" +
+                                "    \"type\" : \"template\",\n" +
+                                "    \"name\" : \"men_fashion_sneakers\",\n" +
+                                "    \"namespace\" : \"904212ab_d06f_4441_b3af_5fd57f10709b\",\n" +
+                                "    \"components\" : [ \n" +
+                                "        {\n" +
+                                "            \"type\" : \"BODY\",\n" +
+                                "            \"text\" : \"Product Features:\\n\\nManmade materials\\nSoft knit upper with sock-like collar \\nFlexible and durable knit toe vamp\\nFaux leather trim accents counter heel and quarter\\nAdjustable lace-up closure \\nElastic laces for a more secure fit \\nLightweight EVA/Rubber Sole \\nMedium width\\nTrue to size\\nMSRP $75.00\"\n" +
+                                "        }, \n" +
+                                "        {\n" +
+                                "            \"type\" : \"FOOTER\",\n" +
+                                "            \"text\" : \"Alpine Swiss\"\n" +
+                                "        }, \n" +
+                                "        {\n" +
+                                "            \"type\" : \"BUTTONS\",\n" +
+                                "            \"buttons\" : [ \n" +
+                                "                {\n" +
+                                "                    \"type\" : \"URL\",\n" +
+                                "                    \"text\" : \"Shop url\",\n" +
+                                "                    \"url\" : \"https://www.walmart.com/ip/Alpine-Swiss-Enzo-Men-s-Lightweight-Knit-Fashion-Sneakers/409877759?athbdg=L1600\"\n" +
+                                "                }, \n" +
+                                "                {\n" +
+                                "                    \"type\" : \"PHONE_NUMBER\",\n" +
+                                "                    \"text\" : \"Shop number\",\n" +
+                                "                    \"phone_number\" : \"+88689098900\"\n" +
+                                "                }\n" +
+                                "            ]\n" +
+                                "        }\n" +
+                                "    ],\n" +
+                                "    \"template\" : \"Product Features:\\n\\nManmade materials\\nSoft knit upper with sock-like collar \\nFlexible and durable knit toe vamp\\nFaux leather trim accents counter heel and quarter\\nAdjustable lace-up closure \\nElastic laces for a more secure fit \\nLightweight EVA/Rubber Sole \\nMedium width\\nTrue to size\\nMSRP $75.00\",\n" +
+                                "    \"language\" : \"ha\",\n" +
+                                "    \"category\" : \"TICKET_UPDATE\",\n" +
+                                "    \"status\" : \"APPROVED\"\n" +
+                                "}";
 
         String requestBody = "{\n" +
-                "    \"messageId\": \"5c0c1255-d865-4765-b520-49a9582b6f5a\",\n" +
+                "    \"messageId\": \"c5e37a01-b7b3-4555-89a6-f5ce371fc5f2\",\n" +
                 "    \"fromUsername\": null,\n" +
                 "    \"roomId\": \"wh24e3c17b-fa49-403a-a3de-398831f39394-886979611619\",\n" +
-                "    \"body\": \"\uD83D\uDE06123\",\n" +
+                "    \"body\": \"Product Features:<br><br>Manmade materials<br>Soft knit upper with sock-like collar <br>Flexible and durable knit toe vamp<br>Faux leather trim accents counter heel and quarter<br>Adjustable lace-up closure <br>Elastic laces for a more secure fit <br>Lightweight EVA/Rubber Sole <br>Medium width<br>True to size<br>MSRP $75.00\",\n" +
                 "    \"type\": 602,\n" +
                 "    \"extraData\": {\n" +
                 "        \"namespace\": \"904212ab_d06f_4441_b3af_5fd57f10709b\",\n" +
                 "        \"language\": {\n" +
-                "            \"code\": \"zh_TW\",\n" +
+                "            \"code\": \"ha\",\n" +
                 "            \"policy\": \"deterministic\"\n" +
                 "        },\n" +
-                "        \"name\": \"doc_test\",\n" +
+                "        \"name\": \"men_fashion_sneakers\",\n" +
                 "        \"components\": [\n" +
-                "            {\n" +
-                "                \"type\": \"header\",\n" +
-                "                \"parameters\": [\n" +
-                "                    {\n" +
-                "                        \"type\": \"document\",\n" +
-                "                        \"document\": {\n" +
-                "                            \"link\": \"https://s3-ap-southeast-1.amazonaws.com/uat-caas-media-storage/upload/photos/user-upload-whatsapp-media/fb04e0e8-4004-4417-b6f3-e464b48813e7-2a36f677f29049188a418b96f7375b7d/2a36f677f29049188a418b96f7375b7d.pdf\",\n" +
-                "                            \"filename\": \"test.pdf\"\n" +
-                "                        }\n" +
-                "                    }\n" +
-                "                ]\n" +
-                "            },\n" +
                 "            {\n" +
                 "                \"type\": \"body\",\n" +
                 "                \"parameters\": []\n" +
@@ -160,7 +146,6 @@ class WebsocketApplicationTests {
                 "        ]\n" +
                 "    }\n" +
                 "}";
-
         ObjectMapper objectMapper = new ObjectMapper();
         WhatsappMessageTemplate whatsappMessageTemplate = objectMapper.readValue(template, WhatsappMessageTemplate.class);
 //        for(WhatsappTemplateComponent component : whatsappMessageTemplate.getComponents()){
@@ -198,31 +183,37 @@ class WebsocketApplicationTests {
                                  componentTypeList.contains(WhatsappTemplateComponent.TYPE_HEADER) &&
                                  matchFormat;
 
+            Boolean isHeaderTemplate = componentTypeList.contains(WhatsappTemplateComponent.TYPE_HEADER) &&
+                                      !componentTypeList.contains(WhatsappTemplateComponent.TYPE_BUTTONS) &&
+                                      matchFormat;
 
             Boolean isButtonTemplate = componentTypeList.contains(WhatsappTemplateComponent.TYPE_BUTTONS) &&
                                        !componentTypeList.contains(WhatsappTemplateComponent.TYPE_HEADER) &&
                                        !matchFormat;
 
 
-            if (isCarousel || isButtonTemplate) {
 
-                if(isCarousel){
-                    templateExtension.setMessageFormat(WhatsappMessageTemplateExtension.CAROUSEL);
-                }
-                if (isButtonTemplate){
-                    templateExtension.setMessageFormat(WhatsappMessageTemplateExtension.BUTTON_TEMPLATE);
-                }
+            if(isCarousel){
+                templateExtension.setMessageFormat(WhatsappMessageTemplateExtension.CAROUSEL);
+            }
+            if (isButtonTemplate){
+                templateExtension.setMessageFormat(WhatsappMessageTemplateExtension.BUTTON_TEMPLATE);
+            }
+
+            String headerText = "";
+            String headerParam = "";
+            String footerText = "";
+            List<WhatsappMessageTemplateExtension.messageContent.Button> buttonList = new ArrayList<>();
+            for (WhatsappTemplateComponent component : componentList) {
+
+                if (isCarousel || isHeaderTemplate || isButtonTemplate) {
 
 
-                List<WhatsappMessageTemplateExtension.messageContent.Button> buttonList = new ArrayList<>();
-                for (WhatsappTemplateComponent component : componentList) {
-                    try {
-
+                        try {
                         if (component.getType().equals(WhatsappTemplateComponent.TYPE_HEADER)) {
                             messageContent.setMediaType(component.getFormat());
                         }
                         String buttonParam = "";
-
                         Gson gson = new Gson();
                         String json = gson.toJson(whatsappTemplateExtensionEntity.getExtraData());
                         JSONObject jsonObject = new JSONObject(json);
@@ -236,13 +227,20 @@ class WebsocketApplicationTests {
                                 //get requestbody > extraData > components > type = header > parameters
                                 if (compJSON.get("type").equals("header")) {
                                     JSONArray parameters = compJSON.getJSONArray("parameters");
-                                    messageContent.setMediaUrl(parameters.toString());
+                                    for(int m = 0 ; m < parameters.length() ; m ++){
+                                        String type = parameters.getJSONObject(m).getString("type");
+                                        if(parameters.getJSONObject(m).has(type)){
+                                            String mediaUrl = parameters.optJSONObject(m).optJSONObject(type).getString("link");
+                                            messageContent.setMediaUrl(mediaUrl);
+                                        }
+                                    }
                                 }
+
                                 if (compJSON.get("type").equals("button")) {
                                     JSONArray buttonParameters = compJSON.getJSONArray("parameters");
                                     for (int k = 0; k < buttonParameters.length(); k++) {
                                         try {
-                                            buttonParam = buttonParameters.optJSONObject(k).getString("text");
+                                            buttonParam = buttonParameters.optJSONObject(k).optString("text");
                                         } catch (NullPointerException exception) {
                                             //TODO ADD LOG
                                         }
@@ -268,7 +266,7 @@ class WebsocketApplicationTests {
                                 }
                                 //如果requestbody url有傳參數的話
                                 if (templateButton.getType().equals(WhatsappTemplateButton.TYPE_URL)) {
-                                    if (buttonParam != "") {
+                                    if (StringUtils.isNotBlank(buttonParam)) {
                                         String[] splitUrls = templateButton.getUrl().split("[?url]");
                                         String url = splitUrls[0];
                                         String urlAndParam = url + "?url=" + buttonParam;
@@ -283,12 +281,57 @@ class WebsocketApplicationTests {
                     }catch (Exception ex){
                         //TODO
                     }
+                        messageContent.setButtons(buttonList);
+                    }else {
+                        templateExtension.setMessageFormat(WhatsappMessageTemplateExtension.TEXT);
+                        Gson gson = new Gson();
+                        String json = gson.toJson(whatsappTemplateExtensionEntity.getExtraData());
+                        JSONObject jsonObject = new JSONObject(json);
+                        JSONArray components = jsonObject.optJSONArray("components");
+
+                        if (null != components) {
+
+                            for (int i = 0; i < components.length(); i++) {
+                                JSONObject compJSON = components.getJSONObject(i);
+                                if (compJSON.get("type").equals("header")) {
+                                    JSONArray parameters = compJSON.getJSONArray("parameters");
+                                    for(int m = 0 ; m < parameters.length() ; m ++){
+                                        String type = parameters.getJSONObject(m).getString("type");
+                                        if(type.equals("text")){
+                                            headerParam = parameters.optJSONObject(m).getString("text");
+                                        }
+                                    }
+                                }
+                            }
+                            {
+                            }
+                        }
+                    }
+                if (component.getType().equals(WhatsappTemplateComponent.TYPE_HEADER)) {
+                    if(component.getFormat().equals(WhatsappTemplateComponent.TYPE_HEADER_FORMAT_TEXT)){
+                        headerText = component.getText();
+                    }
                 }
-                messageContent.setButtons(buttonList);
-            } else {
-                templateExtension.setMessageFormat(WhatsappMessageTemplateExtension.TEXT);
+                if(component.getType().equals(WhatsappTemplateComponent.TYPE_FOOTER)){
+                    footerText = component.getText();
+                }
             }
-            messageContent.setTitle(whatsappTemplateExtensionEntity.getBody());
+            StringBuilder builder = new StringBuilder();
+            if(headerText.contains("{{1}}")){
+                String assembleHeader = headerText.replace("{{1}}",headerParam);
+                builder.append(assembleHeader);
+            }else {
+                builder.append(headerText);
+            }
+            if(StringUtils.isNotBlank(headerText)){
+                builder.append("\n\n");
+            }
+            builder.append(whatsappTemplateExtensionEntity.getBody());
+            if(StringUtils.isNotBlank(footerText)){
+                builder.append("\n\n");
+            }
+            builder.append(footerText);
+            messageContent.setTitle(builder.toString().trim());
             templateExtension.setMessageContent(messageContent);
 
         } catch (Exception ex) {
@@ -299,7 +342,6 @@ class WebsocketApplicationTests {
         String templateExtensionString = objectMapper.writeValueAsString(templateExtension);
         return templateExtensionString;
     }
-
 
     @Test
     void parseFormatTest() throws JSONException, IOException {
@@ -437,12 +479,12 @@ class WebsocketApplicationTests {
     @Test
     void TestuserName(){
 
-        String usernameList = "name1,name2,name3";
-        String[] usernameArr = usernameList.split(",");
-        List<String> userNames = new ArrayList<>();
-        for(int i = 0; i< usernameArr.length;i++){
-            String username = usernameArr[i];
-            System.out.println(username);
+        String param = "param";
+        String test = "開頭 {{1}} 這裡有變數";
+        StringBuilder builder = new StringBuilder();
+        if(test.contains("{{1}}")){
+            String replace = test.replace("{{1}}", param);
+            System.out.println(replace);
         }
     }
 }
