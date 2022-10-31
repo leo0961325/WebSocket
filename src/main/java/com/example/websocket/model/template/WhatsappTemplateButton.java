@@ -7,7 +7,6 @@ public class WhatsappTemplateButton {
     public static final String TYPE_PHONE_NUMBER = "PHONE_NUMBER";
     public static final String TYPE_URL = "URL";
     public static final String TYPE_QUICK_REPLY = "QUICK_REPLY";
-    public static final String POSTBACK = "postback";
 
     // Values: PHONE_NUMBER, URL, and QUICK_REPLIES
     private String type;

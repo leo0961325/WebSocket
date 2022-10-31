@@ -9,6 +9,7 @@ import com.example.websocket.model.template.WhatsappTemplateExtensionEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -87,58 +88,74 @@ class WhatsAppTemplatesTests {
          * must take off _id;
          */
         String template =
-                        "{\n" +
-                                "    \"id\" : \"275469878064813\",\n" +
-                                "    \"team\" : \"Easychat-2\",\n" +
-                                "    \"accId\" : \"24e3c17b-fa49-403a-a3de-398831f39394\",\n" +
-                                "    \"type\" : \"template\",\n" +
-                                "    \"name\" : \"men_fashion_sneakers\",\n" +
-                                "    \"namespace\" : \"904212ab_d06f_4441_b3af_5fd57f10709b\",\n" +
-                                "    \"components\" : [ \n" +
-                                "        {\n" +
-                                "            \"type\" : \"BODY\",\n" +
-                                "            \"text\" : \"Product Features:\\n\\nManmade materials\\nSoft knit upper with sock-like collar \\nFlexible and durable knit toe vamp\\nFaux leather trim accents counter heel and quarter\\nAdjustable lace-up closure \\nElastic laces for a more secure fit \\nLightweight EVA/Rubber Sole \\nMedium width\\nTrue to size\\nMSRP $75.00\"\n" +
-                                "        }, \n" +
-                                "        {\n" +
-                                "            \"type\" : \"FOOTER\",\n" +
-                                "            \"text\" : \"Alpine Swiss\"\n" +
-                                "        }, \n" +
-                                "        {\n" +
-                                "            \"type\" : \"BUTTONS\",\n" +
-                                "            \"buttons\" : [ \n" +
-                                "                {\n" +
-                                "                    \"type\" : \"URL\",\n" +
-                                "                    \"text\" : \"Shop url\",\n" +
-                                "                    \"url\" : \"https://www.walmart.com/ip/Alpine-Swiss-Enzo-Men-s-Lightweight-Knit-Fashion-Sneakers/409877759?athbdg=L1600\"\n" +
-                                "                }, \n" +
-                                "                {\n" +
-                                "                    \"type\" : \"PHONE_NUMBER\",\n" +
-                                "                    \"text\" : \"Shop number\",\n" +
-                                "                    \"phone_number\" : \"+88689098900\"\n" +
-                                "                }\n" +
-                                "            ]\n" +
-                                "        }\n" +
-                                "    ],\n" +
-                                "    \"template\" : \"Product Features:\\n\\nManmade materials\\nSoft knit upper with sock-like collar \\nFlexible and durable knit toe vamp\\nFaux leather trim accents counter heel and quarter\\nAdjustable lace-up closure \\nElastic laces for a more secure fit \\nLightweight EVA/Rubber Sole \\nMedium width\\nTrue to size\\nMSRP $75.00\",\n" +
-                                "    \"language\" : \"ha\",\n" +
-                                "    \"category\" : \"TICKET_UPDATE\",\n" +
-                                "    \"status\" : \"APPROVED\"\n" +
-                                "}";
+                            "{\n" +
+                                    "    \"id\" : \"378881204331613\",\n" +
+                                    "    \"team\" : \"Easychat-2\",\n" +
+                                    "    \"accId\" : \"24e3c17b-fa49-403a-a3de-398831f39394\",\n" +
+                                    "    \"type\" : \"template\",\n" +
+                                    "    \"name\" : \"doc_test\",\n" +
+                                    "    \"namespace\" : \"904212ab_d06f_4441_b3af_5fd57f10709b\",\n" +
+                                    "    \"components\" : [ \n" +
+                                    "        {\n" +
+                                    "            \"type\" : \"HEADER\",\n" +
+                                    "            \"format\" : \"DOCUMENT\",\n" +
+                                    "            \"example\" : {\n" +
+                                    "                \"header_handle\" : [ \n" +
+                                    "                    \"https://scontent.whatsapp.net/v/t61.29466-34/299826941_378881207664946_3677727754011328572_n.pdf?ccb=1-7&_nc_sid=57045b&_nc_ohc=Z9RKJJqtK8gAX8KmUGU&_nc_ht=scontent.whatsapp.net&edm=AH51TzQEAAAA&oh=01_AdQY7snJMIAYjDmT3XMtGUgeeLt83eaksftdeguTN-fMow&oe=6383233C\"\n" +
+                                    "                ]\n" +
+                                    "            }\n" +
+                                    "        }, \n" +
+                                    "        {\n" +
+                                    "            \"type\" : \"BODY\",\n" +
+                                    "            \"text\" : \"\uD83D\uDE06123\"\n" +
+                                    "        }, \n" +
+                                    "        {\n" +
+                                    "            \"type\" : \"FOOTER\",\n" +
+                                    "            \"text\" : \"456\"\n" +
+                                    "        }, \n" +
+                                    "        {\n" +
+                                    "            \"type\" : \"BUTTONS\",\n" +
+                                    "            \"buttons\" : [ \n" +
+                                    "                {\n" +
+                                    "                    \"type\" : \"PHONE_NUMBER\",\n" +
+                                    "                    \"text\" : \"click me\",\n" +
+                                    "                    \"phone_number\" : \"+886965667678\"\n" +
+                                    "                }\n" +
+                                    "            ]\n" +
+                                    "        }\n" +
+                                    "    ],\n" +
+                                    "    \"template\" : \"\uD83D\uDE06123\",\n" +
+                                    "    \"language\" : \"zh_TW\",\n" +
+                                    "    \"category\" : \"TRANSACTIONAL\",\n" +
+                                    "    \"status\" : \"APPROVED\"\n" +
+                                    "}";
 
         String requestBody = "{\n" +
-                "    \"messageId\": \"c5e37a01-b7b3-4555-89a6-f5ce371fc5f2\",\n" +
+                "    \"messageId\": \"336af3b0-c229-4514-b066-2c96b8d0880d\",\n" +
                 "    \"fromUsername\": null,\n" +
                 "    \"roomId\": \"wh24e3c17b-fa49-403a-a3de-398831f39394-886979611619\",\n" +
-                "    \"body\": \"Product Features:<br><br>Manmade materials<br>Soft knit upper with sock-like collar <br>Flexible and durable knit toe vamp<br>Faux leather trim accents counter heel and quarter<br>Adjustable lace-up closure <br>Elastic laces for a more secure fit <br>Lightweight EVA/Rubber Sole <br>Medium width<br>True to size<br>MSRP $75.00\",\n" +
+                "    \"body\": \"\uD83D\uDE06123\",\n" +
                 "    \"type\": 602,\n" +
                 "    \"extraData\": {\n" +
                 "        \"namespace\": \"904212ab_d06f_4441_b3af_5fd57f10709b\",\n" +
                 "        \"language\": {\n" +
-                "            \"code\": \"ha\",\n" +
+                "            \"code\": \"zh_TW\",\n" +
                 "            \"policy\": \"deterministic\"\n" +
                 "        },\n" +
-                "        \"name\": \"men_fashion_sneakers\",\n" +
+                "        \"name\": \"doc_test\",\n" +
                 "        \"components\": [\n" +
+                "            {\n" +
+                "                \"type\": \"header\",\n" +
+                "                \"parameters\": [\n" +
+                "                    {\n" +
+                "                        \"type\": \"document\",\n" +
+                "                        \"document\": {\n" +
+                "                            \"link\": \"https://s3-ap-southeast-1.amazonaws.com/uat-caas-media-storage/upload/photos/user-upload-whatsapp-media/fb04e0e8-4004-4417-b6f3-e464b48813e7-24425fb24c1b44659b8fcd551a775a4e/24425fb24c1b44659b8fcd551a775a4e.pdf\",\n" +
+                "                            \"filename\": \"test.pdf\"\n" +
+                "                        }\n" +
+                "                    }\n" +
+                "                ]\n" +
+                "            },\n" +
                 "            {\n" +
                 "                \"type\": \"body\",\n" +
                 "                \"parameters\": []\n" +
@@ -228,10 +245,14 @@ class WhatsAppTemplatesTests {
                                 if (compJSON.get("type").equals("header")) {
                                     JSONArray parameters = compJSON.getJSONArray("parameters");
                                     for(int m = 0 ; m < parameters.length() ; m ++){
-                                        String type = parameters.getJSONObject(m).getString("type");
+                                        String type = parameters.getJSONObject(m).optString("type");
                                         if(parameters.getJSONObject(m).has(type)){
-                                            String mediaUrl = parameters.optJSONObject(m).optJSONObject(type).getString("link");
+                                            String mediaUrl = parameters.optJSONObject(m).optJSONObject(type).optString("link");
                                             messageContent.setMediaUrl(mediaUrl);
+                                        }
+                                        if(type.equals("document")){
+                                            String mediaFileName = parameters.optJSONObject(m).optJSONObject(type).optString("filename");
+                                            messageContent.setMediaFilename(mediaFileName);
                                         }
                                     }
                                 }
@@ -260,9 +281,9 @@ class WhatsAppTemplatesTests {
                                 if (templateButton.getType().equals(WhatsappTemplateButton.TYPE_URL)) {
                                     button.setType(WhatsappTemplateButton.TYPE_URL);
                                 } else if (templateButton.getType().equals(WhatsappTemplateButton.TYPE_QUICK_REPLY)) {
-                                    button.setType(WhatsappTemplateButton.POSTBACK);
+                                    button.setType(WhatsappTemplateButton.TYPE_QUICK_REPLY);
                                 } else if (templateButton.getType().equals(WhatsappTemplateButton.TYPE_PHONE_NUMBER)) {
-                                    button.setType(WhatsappTemplateButton.POSTBACK);
+                                    button.setType(WhatsappTemplateButton.TYPE_PHONE_NUMBER);
                                 }
                                 //如果requestbody url有傳參數的話
                                 if (templateButton.getType().equals(WhatsappTemplateButton.TYPE_URL)) {
@@ -274,6 +295,10 @@ class WhatsAppTemplatesTests {
                                     } else {
                                         button.setUrl(templateButton.getUrl());
                                     }
+
+                                }
+                                if(templateButton.getType().equals(WhatsappTemplateButton.TYPE_PHONE_NUMBER)){
+                                    button.setPhoneNumber(templateButton.getPhone_number());
                                 }
                                 buttonList.add(button);
                             }
@@ -316,22 +341,19 @@ class WhatsAppTemplatesTests {
                     footerText = component.getText();
                 }
             }
-            StringBuilder builder = new StringBuilder();
-            if(headerText.contains("{{1}}")){
-                String assembleHeader = headerText.replace("{{1}}",headerParam);
-                builder.append(assembleHeader);
-            }else {
-                builder.append(headerText);
-            }
+
             if(StringUtils.isNotBlank(headerText)){
-                builder.append("\n\n");
+                if(headerText.contains("{{1}}")){
+                    String assembleHeader = headerText.replace("{{1}}",headerParam);
+                    messageContent.setHeader(assembleHeader);
+                }else {
+                    messageContent.setHeader(headerText);
+                }
             }
-            builder.append(whatsappTemplateExtensionEntity.getBody());
+            messageContent.setBody(whatsappTemplateExtensionEntity.getBody());
             if(StringUtils.isNotBlank(footerText)){
-                builder.append("\n\n");
+                messageContent.setFooter(footerText);
             }
-            builder.append(footerText);
-            messageContent.setTitle(builder.toString().trim());
             templateExtension.setMessageContent(messageContent);
 
         } catch (Exception ex) {
@@ -485,6 +507,24 @@ class WhatsAppTemplatesTests {
         if(test.contains("{{1}}")){
             String replace = test.replace("{{1}}", param);
             System.out.println(replace);
+        }
+    }
+
+    @Test
+    void parseStringExtension() throws JSONException {
+
+        String ext = "\"{\\\"messageFormat\\\": \\\"carousel\\\", \\\"messageContent\\\": {\\\"buttons\\\": [{\\\"title\\\": \\\"View Product\\\", \\\"type\\\": \\\"URL\\\", \\\"url\\\": \\\"https://api.omnichat.ai/?url=www.facebook.com.tw\\\"}], \\\"mediaUrl\\\": \\\"https://s3-ap-southeast-1.amazonaws.com/uat-caas-media-storage/upload/photos/user-upload-photo/fb04e0e8-4004-4417-b6f3-e464b48813e7-e5ea42533a5b463fabd552993b253cb2.jpg\\\", \\\"mediaType\\\": \\\"IMAGE\\\", \\\"body\\\": \\\"123<br>123<br>123<br><br>If you do not want to receive WhatsApp message, please send \\\\\\\"Unsubscribe\\\\\\\"\\\"}}\"";
+        String replace = ext.replace("\t", "");
+        JsonParser parser = new JsonParser();
+        String asString = parser.parse(replace).getAsString();
+        JSONObject jsonObject = new JSONObject(asString);
+        String messageFormat = jsonObject.getString("messageFormat");
+        if(Objects.equals(messageFormat,"carousel")){
+            JSONObject msgContentObj = jsonObject.getJSONObject("messageContent");
+            String mediaUrl = msgContentObj.getString("mediaUrl");
+            String mediaType = msgContentObj.getString("mediaType").toLowerCase();
+            System.out.println(mediaUrl);
+            System.out.println(mediaType);
         }
     }
 }

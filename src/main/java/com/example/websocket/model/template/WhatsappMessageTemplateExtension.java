@@ -41,7 +41,12 @@ public class WhatsappMessageTemplateExtension {
         private List<Button> buttons;
         private String mediaUrl;
         private String mediaType;
-        private String title;
+        private String mediaFilename;
+        private String header;
+        private String body;
+        private String footer;
+
+
 
         public List<Button> getButtons() {
             return buttons;
@@ -67,12 +72,36 @@ public class WhatsappMessageTemplateExtension {
             this.mediaType = mediaType;
         }
 
-        public String getTitle() {
-            return title;
+        public String getHeader() {
+            return header;
         }
 
-        public void setTitle(String title) {
-            this.title = title;
+        public void setHeader(String header) {
+            this.header = header;
+        }
+
+        public String getBody() {
+            return body;
+        }
+
+        public void setBody(String body) {
+            this.body = body;
+        }
+
+        public String getFooter() {
+            return footer;
+        }
+
+        public void setFooter(String footer) {
+            this.footer = footer;
+        }
+
+        public String getMediaFilename() {
+            return mediaFilename;
+        }
+
+        public void setMediaFilename(String mediaFilename) {
+            this.mediaFilename = mediaFilename;
         }
 
         /**
@@ -84,6 +113,8 @@ public class WhatsappMessageTemplateExtension {
             private String title;
             private String type;
             private String url;
+
+            private String phoneNumber;
 
             public String getTitle() {
                 return title;
@@ -107,6 +138,14 @@ public class WhatsappMessageTemplateExtension {
 
             public void setUrl(String url) {
                 this.url = url;
+            }
+
+            public String getPhoneNumber() {
+                return phoneNumber;
+            }
+
+            public void setPhoneNumber(String phoneNumber) {
+                this.phoneNumber = phoneNumber;
             }
         }
     }
