@@ -9,7 +9,13 @@ import com.example.websocket.model.template.WhatsappTemplateExtensionEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
+import net.minidev.json.parser.JSONParser;
+import net.minidev.json.parser.ParseException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -192,12 +198,20 @@ class WhatsAppTemplatesTests {
                                                           .map(WhatsappTemplateComponent::getType)
                                                           .collect(Collectors.toList());
 
+            Boolean hasMediaHeader = componentList.stream()
+                    .filter(c -> c.getType().equals(WhatsappTemplateComponent.TYPE_HEADER))
+                    .anyMatch(component -> (component.getFormat().equals(WhatsappTemplateComponent.TYPE_HEADER_FORMAT_IMAGE) ||
+                            component.getFormat().equals(WhatsappTemplateComponent.TYPE_HEADER_FORMAT_VIDEO) ||
+                            component.getFormat().equals(WhatsappTemplateComponent.TYPE_HEADER_FORMAT_DOCUMENT)));
+
+
             Boolean matchFormat = componentList.stream()
                                                .filter(c -> c.getType()
                                                .equals(WhatsappTemplateComponent.TYPE_HEADER)).anyMatch(component -> (component.getFormat().equals(WhatsappTemplateComponent.TYPE_HEADER_FORMAT_IMAGE) || component.getFormat().equals(WhatsappTemplateComponent.TYPE_HEADER_FORMAT_VIDEO) || component.getFormat().equals(WhatsappTemplateComponent.TYPE_HEADER_FORMAT_DOCUMENT)));
 
             Boolean isCarousel = componentTypeList.contains(WhatsappTemplateComponent.TYPE_BUTTONS) &&
                                  componentTypeList.contains(WhatsappTemplateComponent.TYPE_HEADER) &&
+                                 hasMediaHeader &&
                                  matchFormat;
 
             Boolean isHeaderTemplate = componentTypeList.contains(WhatsappTemplateComponent.TYPE_HEADER) &&
@@ -206,6 +220,7 @@ class WhatsAppTemplatesTests {
 
             Boolean isButtonTemplate = componentTypeList.contains(WhatsappTemplateComponent.TYPE_BUTTONS) &&
                                        !componentTypeList.contains(WhatsappTemplateComponent.TYPE_HEADER) &&
+                                       !hasMediaHeader &&
                                        !matchFormat;
 
 
@@ -227,7 +242,7 @@ class WhatsAppTemplatesTests {
 
 
                         try {
-                        if (component.getType().equals(WhatsappTemplateComponent.TYPE_HEADER)) {
+                        if (component.getType().equals(WhatsappTemplateComponent.TYPE_HEADER )&& hasMediaHeader) {
                             messageContent.setMediaType(component.getFormat());
                         }
                         String buttonParam = "";
@@ -242,7 +257,7 @@ class WhatsAppTemplatesTests {
 
                                 JSONObject compJSON = components.getJSONObject(i);
                                 //get requestbody > extraData > components > type = header > parameters
-                                if (compJSON.get("type").equals("header")) {
+                                if (hasMediaHeader && compJSON.get("type").equals("header")) {
                                     JSONArray parameters = compJSON.getJSONArray("parameters");
                                     for(int m = 0 ; m < parameters.length() ; m ++){
                                         String type = parameters.getJSONObject(m).optString("type");
@@ -269,8 +284,6 @@ class WhatsAppTemplatesTests {
                                 }
 
 
-                            }
-                            {
                             }
                         }
                         if (Objects.nonNull(component.getButtons())) {
@@ -511,20 +524,56 @@ class WhatsAppTemplatesTests {
     }
 
     @Test
-    void parseStringExtension() throws JSONException {
+    void parseStringExtension() throws JSONException, ParseException {
 
-        String ext = "\"{\\\"messageFormat\\\": \\\"carousel\\\", \\\"messageContent\\\": {\\\"buttons\\\": [{\\\"title\\\": \\\"View Product\\\", \\\"type\\\": \\\"URL\\\", \\\"url\\\": \\\"https://api.omnichat.ai/?url=www.facebook.com.tw\\\"}], \\\"mediaUrl\\\": \\\"https://s3-ap-southeast-1.amazonaws.com/uat-caas-media-storage/upload/photos/user-upload-photo/fb04e0e8-4004-4417-b6f3-e464b48813e7-e5ea42533a5b463fabd552993b253cb2.jpg\\\", \\\"mediaType\\\": \\\"IMAGE\\\", \\\"body\\\": \\\"123<br>123<br>123<br><br>If you do not want to receive WhatsApp message, please send \\\\\\\"Unsubscribe\\\\\\\"\\\"}}\"";
-        String replace = ext.replace("\t", "");
-        JsonParser parser = new JsonParser();
-        String asString = parser.parse(replace).getAsString();
-        JSONObject jsonObject = new JSONObject(asString);
+        String ext2 = "{\n" +
+                "        \"messageFormat\" : \"carousel\",\n" +
+                "        \"messageContent\" : {\n" +
+                "            \"buttons\" : [ \n" +
+                "                {\n" +
+                "                    \"title\" : \"View Product\",\n" +
+                "                    \"type\" : \"URL\",\n" +
+                "                    \"url\" : \"https://api.omnichat.ai/?url=www.facebook.com.tw\"\n" +
+                "                }\n" +
+                "            ],\n" +
+                "            \"mediaUrl\" : \"https://s3-ap-southeast-1.amazonaws.com/uat-caas-media-storage/upload/photos/user-upload-photo/fb04e0e8-4004-4417-b6f3-e464b48813e7-ec68bfcaafc44cdcad07b768fd0f4fd2.jpg\",\n" +
+                "            \"mediaType\" : \"IMAGE\",\n" +
+                "            \"body\" : \"ＣＳ<br>sdgdg<br>awfawf<br><br>If you do not want to receive WhatsApp message, please send \\\"Unsubscribe\\\"\"\n" +
+                "        }\n" +
+                "    }";
+
+        try {
+            //to satisfy json format ,to handle Double quotes in string
+            String toJson = ext2.replace("\\\"", "\"");
+            toJson = toJson.replace("\\","tempToReplace");
+            toJson = toJson.replaceAll("tempToReplacetempToReplace","\\\\");
+            JSONObject jsonObject = new JSONObject(toJson);
+            System.out.println("!!!!!" + jsonObject);
+            handleJsonData(jsonObject);
+        }catch (JSONException e){
+            try {
+                String replace = ext2.replace("\t", "");
+                JsonParser parser = new JsonParser();
+                String toJson = parser.parse(replace).toString();
+                JSONObject jsonObject = new JSONObject(toJson);
+                System.out.println("@@@@@"+jsonObject);
+                handleJsonData(jsonObject);
+            }catch (Exception exception){
+
+            }
+        }
+  }
+
+    private void handleJsonData(JSONObject jsonObject) throws JSONException {
         String messageFormat = jsonObject.getString("messageFormat");
-        if(Objects.equals(messageFormat,"carousel")){
+        if (Objects.equals(messageFormat, "carousel")) {
             JSONObject msgContentObj = jsonObject.getJSONObject("messageContent");
             String mediaUrl = msgContentObj.getString("mediaUrl");
             String mediaType = msgContentObj.getString("mediaType").toLowerCase();
             System.out.println(mediaUrl);
             System.out.println(mediaType);
         }
-    }
 }
+}
+
+
